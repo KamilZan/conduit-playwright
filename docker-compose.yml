@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  test-runner:
+    build: .
+    container_name: conduit-playwright-tests
+    environment:
+      - CI=true
+      - BASE_URL=https://api.realworld.io
+      - UI_URL=https://angular.realworld.io
+    volumes:
+      # Mapujemy katalog raportów, aby po zakończeniu testów raport HTML pojawił się na Twoim hoście
+      - ./playwright-report:/app/playwright-report
+      - ./test-results:/app/test-results
+    command: npx playwright test
